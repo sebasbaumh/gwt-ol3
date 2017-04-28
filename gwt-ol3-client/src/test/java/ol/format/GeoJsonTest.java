@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2014, 2016 gwt-ol3
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
 package ol.format;
 
 import com.google.gwt.core.client.JavaScriptObject;
@@ -14,9 +29,9 @@ import ol.geom.LineString;
  * @author Tino Desjardins
  *
  */
-public class GeoJSONTest extends GwtOL3BaseTestCase {
+public class GeoJsonTest extends GwtOL3BaseTestCase {
 
-	private GeoJSON geoJSONFormat;
+	private GeoJson geoJsonFormat;
 	
 	
 	
@@ -26,22 +41,22 @@ public class GeoJSONTest extends GwtOL3BaseTestCase {
 
             @Override
             public void test() {
-                geoJSONFormat = new GeoJSON();
+                geoJsonFormat = new GeoJson();
             }
 	        
 	    });
 	}
 	
-	public void testFeatureToGeoJSON() {
+	public void testFeatureToGeoJson() {
 
 	    injectUrlAndTest(new TestWithInjection() {
             
             @Override
             public void test() {
                 
-                assertNotNull(geoJSONFormat);
+                assertNotNull(geoJsonFormat);
 
-                JavaScriptObject geoJSON = geoJSONFormat.writeFeatureObject(createTestFeature(), null);
+                JavaScriptObject geoJSON = geoJsonFormat.writeFeatureObject(createTestFeature(), null);
                 assertNotNull(geoJSON);
                 
             }
@@ -50,17 +65,17 @@ public class GeoJSONTest extends GwtOL3BaseTestCase {
 
 	}
 
-    public void testGeoJSONToFeature() {
+    public void testGeoJsonToFeature() {
         
         injectUrlAndTest(new TestWithInjection() {
 
             @Override
             public void test() {
-                JavaScriptObject geoJSON = geoJSONFormat.writeFeatureObject(createTestFeature(), null);
+                JavaScriptObject geoJson = geoJsonFormat.writeFeatureObject(createTestFeature(), null);
 
                 // Convert Features from GeoJSON
-                Feature featureGeoJSON = geoJSONFormat.readFeature(geoJSON, null);
-                assertNotNull(featureGeoJSON);
+                Feature featureGeoJson = geoJsonFormat.readFeature(geoJson, null);
+                assertNotNull(featureGeoJson);
             }
 
         });
@@ -73,25 +88,25 @@ public class GeoJSONTest extends GwtOL3BaseTestCase {
 
             @Override
             public void test() {
-                String geoJSON = geoJSONFormat.writeFeatures(createTestFeature(), null);
-                assertNotNull(geoJSON);
+                String geoJson = geoJsonFormat.writeFeatures(createTestFeature(), null);
+                assertNotNull(geoJson);
 
-                JavaScriptObject javaScriptObject = JsonUtils.safeEval(geoJSON);
+                JavaScriptObject javaScriptObject = JsonUtils.safeEval(geoJson);
                 assertNotNull(javaScriptObject);
             }
         });
 
     }
 	
-    public void testReadFeatureFromGeoJSON() {
+    public void testReadFeatureFromGeoJson() {
         
         injectUrlAndTest(new TestWithInjection() {
 
             @Override
             public void test() {
-                String geoJSON = geoJSONFormat.writeFeature(createTestFeature(), null);
-                assertNotNull(geoJSON);
-                Feature feature = geoJSONFormat.readFeature(geoJSON, null);
+                String geoJson = geoJsonFormat.writeFeature(createTestFeature(), null);
+                assertNotNull(geoJson);
+                Feature feature = geoJsonFormat.readFeature(geoJson, null);
 
                 assertNotNull(feature);
                 //assertTrue(features.length > 0);
@@ -100,16 +115,16 @@ public class GeoJSONTest extends GwtOL3BaseTestCase {
 
     }
     
-    public void testReadFeatureCollectionFromGeoJSON() {
+    public void testReadFeatureCollectionFromGeoJson() {
         
         injectUrlAndTest(new TestWithInjection() {
 
             @Override
             public void test() {
-                String geoJSON = geoJSONFormat.writeFeatures(createTestFeature(), null);
-                assertNotNull(geoJSON);
+                String geoJson = geoJsonFormat.writeFeatures(createTestFeature(), null);
+                assertNotNull(geoJson);
                 //JavaScriptObject javaScriptObject = JsonUtils.safeEval(geoJSON);
-                Feature[] features = geoJSONFormat.readFeatures(geoJSON, null);
+                Feature[] features = geoJsonFormat.readFeatures(geoJson, null);
 
                 assertNotNull(features);
                 //assertTrue(features.length > 0);

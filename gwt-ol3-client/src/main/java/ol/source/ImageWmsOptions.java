@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2014, 2017 gwt-ol3
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
 package ol.source;
 
 import jsinterop.annotations.JsOverlay;
@@ -11,7 +26,7 @@ import jsinterop.annotations.JsType;
  *
  */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
-public class ImageWMSOptions extends SourceOptions {
+public class ImageWmsOptions extends SourceOptions {
 
 	@JsProperty
 	public native void setCrossOrigin(String crossOrigin);
@@ -26,12 +41,12 @@ public class ImageWMSOptions extends SourceOptions {
 	public native void setServerTypeString(String serverType);
 
 	@JsOverlay
-	public final WMSServerType getServerType() {
-		return WMSServerType.getInstance(getServerTypeString());
+	public final WmsServerType getServerType() {
+		return WmsServerType.getInstance(getServerTypeString());
 	}
 
 	@JsOverlay
-	public final void setServerType(WMSServerType serverType) {
+	public final void setServerType(WmsServerType serverType) {
 		setServerTypeString(serverType.getValue());
 	}
 
@@ -42,10 +57,10 @@ public class ImageWMSOptions extends SourceOptions {
 	public native ImageLoadFunction getImageLoadFunction();
 
 	@JsProperty
-	public native void setParams(ImageWMSParams params);
+	public native void setParams(ImageWmsParams params);
 
 	@JsProperty
-	public native ImageWMSParams getParams();
+	public native ImageWmsParams getParams();
 
 	/**
 	 *

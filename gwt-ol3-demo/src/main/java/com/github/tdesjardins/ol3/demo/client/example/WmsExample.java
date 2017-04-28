@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2014, 2016 gwt-ol3
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
 package com.github.tdesjardins.ol3.demo.client.example;
 
 import com.github.tdesjardins.ol3.demo.client.utils.DemoUtils;
@@ -16,9 +31,9 @@ import ol.layer.Image;
 import ol.layer.LayerOptions;
 import ol.proj.Projection;
 import ol.proj.ProjectionOptions;
-import ol.source.ImageWMS;
-import ol.source.ImageWMSOptions;
-import ol.source.ImageWMSParams;
+import ol.source.ImageWms;
+import ol.source.ImageWmsOptions;
+import ol.source.ImageWmsParams;
 
 /**
  * Example with WMS layers.
@@ -34,15 +49,15 @@ public class WmsExample implements Example {
     @Override
     public void show(String exampleId) {
 
-        ImageWMSParams imageWMSParams = OLFactory.createOptions();
+        ImageWmsParams imageWMSParams = OLFactory.createOptions();
         imageWMSParams.setLayers("ch.swisstopo.geologie-geotechnik-gk500-gesteinsklassierung,ch.bafu.schutzgebiete-paerke_nationaler_bedeutung");
 
-        ImageWMSOptions imageWMSOptions = OLFactory.createOptions();
+        ImageWmsOptions imageWMSOptions = OLFactory.createOptions();
         imageWMSOptions.setUrl("http://wms.geo.admin.ch/");
         imageWMSOptions.setParams(imageWMSParams);
         imageWMSOptions.setRatio(1.5f);
 
-        ImageWMS imageWMSSource = new ImageWMS(imageWMSOptions);
+        ImageWms imageWMSSource = new ImageWms(imageWMSOptions);
 
         LayerOptions layerOptions = OLFactory.createOptions();
         layerOptions.setSource(imageWMSSource);

@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2014, 2017 gwt-ol3
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
 /**
  *
  */
@@ -16,7 +31,7 @@ import ol.OLFactory;
 import ol.View;
 import ol.control.Rotate;
 import ol.control.ScaleLine;
-import ol.format.GeoJSON;
+import ol.format.GeoJson;
 import ol.geom.LineString;
 import ol.interaction.KeyboardPan;
 import ol.interaction.KeyboardZoom;
@@ -34,7 +49,7 @@ import ol.source.XyzOptions;
  *
  * @author Tobias Lochmann
  */
-public class GeoJSONExample implements Example {
+public class GeoJsonExample implements Example {
 
     /* (non-Javadoc)
      * @see de.desjardins.ol3.demo.client.example.Example#show() */
@@ -54,18 +69,18 @@ public class GeoJSONExample implements Example {
         Feature feature = new Feature(featureOptions);
 
         // convert feature to GeoJSON
-        GeoJSON geoJsonFormat = new GeoJSON();
-        JavaScriptObject geoJSON = geoJsonFormat.writeFeatureObject(feature, null);
+        GeoJson geoJsonFormat = new GeoJson();
+        JavaScriptObject geoJson = geoJsonFormat.writeFeatureObject(feature, null);
 
         // convert features from GeoJSON
-        Feature featureGeoJSON = geoJsonFormat.readFeature(geoJSON, null);
+        Feature featureGeoJson = geoJsonFormat.readFeature(geoJson, null);
 
         // show converted features
         Collection<Feature> lstFeatures = new Collection<Feature>();
-        lstFeatures.push(featureGeoJSON);
+        lstFeatures.push(featureGeoJson);
 
         VectorOptions vectorSourceOptions = OLFactory.createOptions();
-        vectorSourceOptions.setFeatures(OLFactory.<Feature[], Collection<Feature>> createObject2(lstFeatures));
+        vectorSourceOptions.setFeatures(lstFeatures);
         Vector vectorSource = new Vector(vectorSourceOptions);
 
         VectorLayerOptions vectorLayerOptions = OLFactory.createOptions();
