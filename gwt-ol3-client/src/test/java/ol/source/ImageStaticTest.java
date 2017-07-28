@@ -18,37 +18,25 @@ package ol.source;
 import ol.GwtOL3BaseTestCase;
 
 /**
- * A test case for {@link ol.source.TileWms}.
+ * A test case for {@link ol.source.ImageStatic}.
  *
- * @author Peter Zanetti
+ * @author Tino desjardins
  */
-public class TileWMSTest extends GwtOL3BaseTestCase {
+public class ImageStaticTest extends GwtOL3BaseTestCase {
 
-    @SuppressWarnings({ "static-method", "javadoc" })
-    public void testTileWMS() {
+    public void testImageStatic() {
 
         injectUrlAndTest(new TestWithInjection() {
 
             @Override
             public void test() {
 
-                TileWmsParams params = new TileWmsParams();
-                params.setLayers("topp:states");
-                params.setTiled(true);
+                ImageStaticOptions imageStaticOptions = new ImageStaticOptions();
+                imageStaticOptions.setUrl("http://imgs.xkcd.com/comics/online_communities.png");
+                ImageStatic imageStatic = new ImageStatic(imageStaticOptions);
 
-                TileWmsOptions options = new TileWmsOptions();
-                options.setUrl("https://ahocevar.com/geoserver/wms");
-                options.setParams(params);
-                options.setServerType(WmsServerType.GEOSERVER);
-
-                TileWms source = new TileWms(options);
-
-                assertEquals("topp:states", source.getParams().getLayers());
-
-                params.setLayers("topp");
-
-                source.updateParams(params);
-                assertEquals("topp", source.getParams().getLayers());
+                assertNotNull(imageStatic);
+                assertTrue(imageStatic instanceof Source);
             }
 
         });

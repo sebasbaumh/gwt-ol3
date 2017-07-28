@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2016 gwt-ol3
+ * Copyright 2014, 2017 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,35 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol.interaction;
+package ol.source;
 
 import ol.GwtOL3BaseTestCase;
-import ol.Observable;
 
 /**
- * 
- * @author Tino Desjardins
+ * A test case for {@link ol.source.Cluster}.
  *
+ * @author Tino Desjardins
  */
-public class SelectTest extends GwtOL3BaseTestCase {
+public class ClusterTest extends GwtOL3BaseTestCase {
 
-    public void testSelect() {
+    public void testCluster() {
 
         injectUrlAndTest(new TestWithInjection() {
-            
+
             @Override
             public void test() {
                 
-                SelectOptions selectOptions = new SelectOptions();
-                Select select = new Select(selectOptions);
+                ClusterOptions clusterOptions = new ClusterOptions();
+                assertNotNull(clusterOptions);
                 
-                assertNotNull(select);
-                assertTrue(select instanceof Observable);
-                assertTrue(select instanceof Interaction);
+                clusterOptions.setDistance(10);
+                assertEquals(10, clusterOptions.getDistance());
+                
+                Vector vectorSource = new Vector();
+                clusterOptions.setSource(vectorSource);
+                
+                Cluster cluster = new Cluster(clusterOptions);
+                assertNotNull(cluster);
+
             }
-            
+
         });
- 
+
     }
 
 }

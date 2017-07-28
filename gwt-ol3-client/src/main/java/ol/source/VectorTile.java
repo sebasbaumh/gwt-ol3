@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2016 gwt-ol3
+ * Copyright 2014, 2017 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,35 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol.interaction;
+package ol.source;
 
-import ol.GwtOL3BaseTestCase;
-import ol.Observable;
+import jsinterop.annotations.JsType;
 
 /**
+ * Class for layer sources providing vector data divided into a tile grid, to be used with {@link ol.layer.VectorTile}.
+ * Although this source receives tiles with vector features from the server, it is not meant for feature editing.
+ * Features are optimized for rendering, their geometries are clipped at or near tile boundaries and simplified for a view resolution.
+ * See {@link ol.source.Vector} for vector sources that are suitable for feature editing.
  * 
- * @author Tino Desjardins
+ * @author gkresic
  *
  */
-public class SelectTest extends GwtOL3BaseTestCase {
+@JsType(isNative = true)
+public class VectorTile extends UrlTile {
 
-    public void testSelect() {
-
-        injectUrlAndTest(new TestWithInjection() {
-            
-            @Override
-            public void test() {
-                
-                SelectOptions selectOptions = new SelectOptions();
-                Select select = new Select(selectOptions);
-                
-                assertNotNull(select);
-                assertTrue(select instanceof Observable);
-                assertTrue(select instanceof Interaction);
-            }
-            
-        });
- 
-    }
+    public VectorTile() {}
+    
+    public VectorTile(VectorTileOptions vectorTileOptions) {}
 
 }

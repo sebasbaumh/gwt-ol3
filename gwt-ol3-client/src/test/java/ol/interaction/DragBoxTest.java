@@ -32,7 +32,9 @@ public class DragBoxTest extends GwtOL3BaseTestCase {
             
             @Override
             public void test() {
-                DragBox dragBox = new DragBox();
+
+            	DragBoxOptions dragBoxOptions = new DragBoxOptions();
+            	DragBox dragBox = new DragBox(dragBoxOptions);
                 
                 assertNotNull(dragBox);
                 assertTrue(dragBox instanceof Observable);

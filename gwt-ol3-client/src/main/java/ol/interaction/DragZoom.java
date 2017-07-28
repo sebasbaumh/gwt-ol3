@@ -25,4 +25,8 @@ import jsinterop.annotations.JsType;
 @JsType(isNative = true)
 public class DragZoom extends DragBox {
 
+    public DragZoom() {}
+    
+    public DragZoom(DragZoomOptions dragZoomOptions) {}
+
 }

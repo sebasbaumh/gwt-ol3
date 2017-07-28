@@ -15,6 +15,8 @@
  *******************************************************************************/
 package ol;
 
+import ol.style.Style;
+
 /**
  * Test for {@link Feature}.
  *
@@ -24,8 +26,9 @@ package ol;
 public class FeatureTest extends GwtOL3BaseTestCase {
 
     private static final String FEATURE_ID = "#1";
+    private static final String GEOMETRY_NAME = "geometry";
     
-    public void testAttribution() {
+    public void testFeature() {
 
         injectUrlAndTest(new TestWithInjection() {
             
@@ -39,8 +42,18 @@ public class FeatureTest extends GwtOL3BaseTestCase {
                 assertTrue(feature instanceof Observable);
                 
                 feature.setId(FEATURE_ID);
-                
                 assertEquals(FEATURE_ID, feature.getId());
+                
+                feature.setGeometryName(GEOMETRY_NAME);
+                assertEquals(GEOMETRY_NAME, feature.getGeometryName());
+                
+                feature.setStyle(new Style());
+                
+                feature.setStyle(new GenericFunction<Feature, Style[]>() {
+                    public Style[] call(Feature object) {
+                        return null;
+                    }
+                });
 
             }
             

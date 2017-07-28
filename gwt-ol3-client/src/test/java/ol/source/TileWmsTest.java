@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2016 gwt-ol3
+ * Copyright 2014, 2017 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,35 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol.interaction;
+package ol.source;
 
 import ol.GwtOL3BaseTestCase;
-import ol.Observable;
 
 /**
- * 
- * @author Tino Desjardins
+ * A test case for {@link ol.source.TileWms}.
  *
+ * @author Peter Zanetti
  */
-public class SelectTest extends GwtOL3BaseTestCase {
+public class TileWmsTest extends GwtOL3BaseTestCase {
 
-    public void testSelect() {
+    public void testTileWms() {
 
         injectUrlAndTest(new TestWithInjection() {
-            
+
             @Override
             public void test() {
-                
-                SelectOptions selectOptions = new SelectOptions();
-                Select select = new Select(selectOptions);
-                
-                assertNotNull(select);
-                assertTrue(select instanceof Observable);
-                assertTrue(select instanceof Interaction);
+
+                TileWmsParams params = new TileWmsParams();
+                params.setLayers("topp:states");
+                params.setTiled(true);
+
+                TileWmsOptions options = new TileWmsOptions();
+                options.setUrl("https://ahocevar.com/geoserver/wms");
+                options.setParams(params);
+                options.setServerType(WmsServerType.GEOSERVER);
+
+                TileWms source = new TileWms(options);
+
+                assertEquals("topp:states", source.getParams().getLayers());
+
+                params.setLayers("topp");
+
+                source.updateParams(params);
+                assertEquals("topp", source.getParams().getLayers());
             }
-            
+
         });
- 
+
     }
 
 }

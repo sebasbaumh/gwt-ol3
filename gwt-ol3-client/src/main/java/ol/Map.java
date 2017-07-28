@@ -22,7 +22,6 @@ import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import ol.control.Control;
-import ol.event.DoubleClickListener;
 import ol.event.EventListener;
 import ol.events.Event;
 import ol.interaction.Interaction;
@@ -233,15 +232,41 @@ public class Map extends Object {
      */
     public native Element getViewport();
 
+    /**
+     * Detect if features intersect a pixel on the viewport.
+	 *
+	 * @param pixel Pixel.
+     */
+	public native boolean hasFeatureAtPixel(Pixel pixel);
+
+    /**
+     * Detect if features intersect a pixel on the viewport. Layers included in the detection
+	 * can be configured through {@link FeatureAtPixelOptions#setLayerFilter(GenericFunction)}.
+	 *
+	 * @param pixel Pixel.
+	 * @param options Optional options.
+     */
+	public native boolean hasFeatureAtPixel(Pixel pixel, FeatureAtPixelOptions options);
+
 	/**
 	 * Detect features that intersect a pixel on the viewport, and execute a
-	 * callback with each intersecting feature. Layers included in the detection
-	 * can be configured through opt_layerFilter.
+	 * callback with each intersecting feature.
 	 *
 	 * @param pixel
 	 * @param callback
 	 */
 	public native Feature forEachFeatureAtPixel(Pixel pixel, GenericFunction<Feature, ?> callback);
+
+	/**
+	 * Detect features that intersect a pixel on the viewport, and execute a
+	 * callback with each intersecting feature. Layers included in the detection
+	 * can be configured through {@link FeatureAtPixelOptions#setLayerFilter(GenericFunction)}.
+	 *
+	 * @param pixel Pixel.
+	 * @param callback Feature callback. The callback will be called with feature or render feature at the pixel as argument. To stop detection, callback functions can return a truthy value.
+	 * @param options Optional options.
+	 */
+	public native Feature forEachFeatureAtPixel(Pixel pixel, GenericFunction<Feature, ?> callback, FeatureAtPixelOptions options);
 
     /**
      * Remove the given control from the map.
@@ -331,13 +356,148 @@ public class Map extends Object {
      */
     public native void updateSize();
 
+    /**
+     * A click with no dragging. A double click will fire two of this.
+     */
     @JsOverlay
-    public final HandlerRegistration addDoubleClickListener(final DoubleClickListener listener) {
-        return OLUtil.observe(this, "dblclick", new EventListener<MapBrowserEvent>() {
+    public final HandlerRegistration addClickListener(final EventListener<MapBrowserEvent> listener) {
+        return OLUtil.observe(this, "click", listener);
+    }
 
+    /**
+     * A true double click, with no dragging.
+     */
+    @JsOverlay
+    public final HandlerRegistration addDoubleClickListener(final EventListener<MapBrowserEvent> listener) {
+        return OLUtil.observe(this, "dblclick", listener);
+    }
+
+    /**
+     * Triggered after the map is moved.
+     */
+    @JsOverlay
+    public final HandlerRegistration addMoveEndListener(final EventListener<MapEvent> listener) {
+        return OLUtil.observe(this, "moveend", listener);
+    }
+
+    /**
+     * Triggered when the map starts moving.
+     */
+    @JsOverlay
+    public final HandlerRegistration addMoveStartListener(final EventListener<MapEvent> listener) {
+        return OLUtil.observe(this, "movestart", listener);
+    }
+
+    /**
+     * Triggered when a pointer is dragged.
+     */
+    @JsOverlay
+    public final HandlerRegistration addPointerDragListener(final EventListener<MapBrowserEvent> listener) {
+        return OLUtil.observe(this, "pointerdrag", listener);
+    }
+
+    /**
+     * Triggered when a pointer is moved.
+     * Note that on touch devices this is triggered when the map is panned, so is not the same as <code>mousemove</code>.
+     */
+    @JsOverlay
+    public final HandlerRegistration addPointerMoveListener(final EventListener<MapBrowserEvent> listener) {
+        return OLUtil.observe(this, "pointermove", listener);
+    }
+
+    /**
+     * postcompose
+     */
+    @JsOverlay
+    public final HandlerRegistration addPostComposeListener(final EventListener<ol.render.Event> listener) {
+        return OLUtil.observe(this, "postcompose", listener);
+    }
+
+    /**
+     * Triggered after a map frame is rendered.
+     */
+    @JsOverlay
+    public final HandlerRegistration addPostRenderListener(final EventListener<MapEvent> listener) {
+        return OLUtil.observe(this, "postrender", listener);
+    }
+
+    /**
+     * precompose
+     */
+    @JsOverlay
+    public final HandlerRegistration addPreComposeListener(final EventListener<ol.render.Event> listener) {
+        return OLUtil.observe(this, "precompose", listener);
+    }
+
+    /**
+     *  A true single click with no dragging and no double click.
+     *  Note that this event is delayed by 250 ms to ensure that it is not a double click.
+     */
+    @JsOverlay
+    public final HandlerRegistration addSingleClickListener(final EventListener<MapBrowserEvent> listener) {
+        return OLUtil.observe(this, "singleclick", listener);
+    }
+
+    /**
+     * Adds a map move listener for the given map.
+     */
+    @JsOverlay
+    public final HandlerRegistration addMapMoveListener(final EventListener<MapEvent> listener) {
+
+    	final HandlerRegistration handlerMap = OLUtil.observe(this, "moveend", listener);
+
+        View view = getView();
+        
+        if (view == null)
+        	return handlerMap;
+
+    	// if we have a view, fire events while the map is moving
+        // try to set up an event handler for the change of the view center
+        // as "moveend" will be only fired when the map stops moving
+
+    	final HandlerRegistration handlerView = OLUtil.observe(view, "change:center", event -> {
+            // create an artificial move event
+            Event e2 = OLUtil.createLinkedEvent(event, "move", Map.this);
+            MapEvent mapEvent = OLUtil.initMapEvent(e2, Map.this);
+            listener.onEvent(mapEvent);
+        });
+
+    	// return a handler registration, which detaches both event handlers
+        return () -> {
+            handlerMap.removeHandler();
+            handlerView.removeHandler();
+        };
+
+    }
+
+    /**
+     * Adds a map zoom listener for the given map.
+     */
+    @JsOverlay
+    public final HandlerRegistration addMapZoomListener(final EventListener<MapEvent> listener) {
+        return OLUtil.observe(getView(), "change:resolution", event -> {
+            Event zoomEvent = OLUtil.createLinkedEvent(event, "zoom", Map.this);
+            MapEvent mapEvent = OLUtil.initMapEvent(zoomEvent, Map.this);
+            listener.onEvent(mapEvent);
+        });
+    }
+
+    /**
+     * Adds a map zoom end listener for the given map.
+     */
+    @JsOverlay
+    public final HandlerRegistration addMapZoomEndListener(final EventListener<MapEvent> listener) {
+        return addMoveEndListener(new EventListener<MapEvent>() {
+        	private double zoomLevel = Map.this.getView().getZoom();
             @Override
-            public void onEvent(MapBrowserEvent event) {
-                listener.onDoubleClick(event);
+            public void onEvent(MapEvent event) {
+                double newZoomLevel = Map.this.getView().getZoom();
+                if(newZoomLevel != this.zoomLevel) {
+                    this.zoomLevel = newZoomLevel;
+                    Event zoomEndEvent = OLUtil.createLinkedEvent(event, "zoomend", Map.this);
+                    MapEvent mapEvent = OLUtil.initMapEvent(zoomEndEvent, Map.this);
+                    listener.onEvent(mapEvent);
+                }
             }
         });
     }

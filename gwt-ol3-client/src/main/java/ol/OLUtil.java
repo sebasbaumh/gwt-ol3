@@ -16,6 +16,7 @@
 package ol;
 
 import javax.annotation.Nullable;
+
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -84,7 +85,10 @@ public final class OLUtil {
      * @param listener
      *            {@link ClickListener}
      * @return {@link HandlerRegistration}
+     * 
+     * @deprecated Use {@link Map#addClickListener(EventListener)} or {@link Map#addSingleClickListener(EventListener)}
      */
+    @Deprecated
     public static HandlerRegistration addClickListener(Map map, boolean singleClicksOnly,
             final ClickListener listener) {
         String type;
@@ -110,7 +114,10 @@ public final class OLUtil {
      * @param listener
      *            {@link DoubleClickListener}
      * @return {@link HandlerRegistration}
+     * 
+     * @deprecated Use {@link Map#addDoubleClickListener(EventListener)}
      */
+    @Deprecated
     public static HandlerRegistration addDoubleClickListener(Map map, final DoubleClickListener listener) {
         return observe(map, "dblclick", new EventListener<MapBrowserEvent>() {
 
@@ -129,7 +136,10 @@ public final class OLUtil {
      * @param listener
      *            {@link MapMoveListener}
      * @return {@link HandlerRegistration}
+     * 
+     * @deprecated Use {@link Map#addMapMoveListener(EventListener)}
      */
+    @Deprecated
     public static HandlerRegistration addMapMoveListener(final Map map, final MapMoveListener listener) {
         // listen to "moveend" events of map
         final HandlerRegistration handlerMap = observe(map, "moveend", new EventListener<MapEvent>() {
@@ -175,17 +185,51 @@ public final class OLUtil {
      * @param listener
      *            {@link MapZoomListener}
      * @return {@link HandlerRegistration}
+     * 
+     * @deprecated Use {@link Map#addMapZoomListener(EventListener)}
      */
+    @Deprecated
     public static HandlerRegistration addMapZoomListener(final Map map, final MapZoomListener listener) {
-        return observe(map.getView(), "propertychange", new EventListener<ObjectEvent>() {
+        return observe(map.getView(), "change:resolution", new EventListener<ObjectEvent>() {
 
             @Override
             public void onEvent(ObjectEvent event) {
-                if("resolution".equals(event.getKey())) {
-                    Event e2 = createLinkedEvent(event, "zoom", map);
-                    MapEvent me = initMapEvent(e2, map);
-                    listener.onMapZoom(me);
+                Event zoomEvent = createLinkedEvent(event, "zoom", map);
+                MapEvent mapEvent = initMapEvent(zoomEvent, map);
+                listener.onMapZoom(mapEvent);
+            }
+        });
+    }
+    
+    /**
+     * Adds a map zoom end listener for the given map.
+     *
+     * @param map
+     *            {@link Map}
+     * @param listener
+     *            {@link MapZoomListener}
+     * @return {@link HandlerRegistration}
+     * 
+     * @deprecated Use {@link Map#addMapZoomEndListener(EventListener)}
+     */
+    @Deprecated
+    public static HandlerRegistration addMapZoomEndListener(final Map map, final MapZoomListener listener) {
+        return observe(map, "moveend", new EventListener<ObjectEvent>() {
+
+        private double zoomLevel = map.getView().getZoom();
+        
+            @Override
+            public void onEvent(ObjectEvent event) {
+                
+                double newZoomLevel = map.getView().getZoom();
+                
+                if(newZoomLevel != this.zoomLevel) {
+                    this.zoomLevel = newZoomLevel;
+                    Event zoomEndEvent = createLinkedEvent(event, "zoomend", map);
+                    MapEvent mapEvent = initMapEvent(zoomEndEvent, map);
+                    listener.onMapZoom(mapEvent);
                 }
+                
             }
         });
     }
@@ -226,7 +270,10 @@ public final class OLUtil {
      * @param listener
      *            {@link TileLoadErrorListener}
      * @return {@link HandlerRegistration}
+     * 
+     * @deprecated Use {@link ol.source.Tile#addTileLoadErrorListener(EventListener)}
      */
+    @Deprecated
     public static HandlerRegistration addTileLoadErrorListener(UrlTile source, final TileLoadErrorListener listener) {
         return observe(source, "tileloaderror", new EventListener<Tile.Event>() {
 
@@ -246,7 +293,10 @@ public final class OLUtil {
      * @param listener
      *            {@link TileLoadStartListener}
      * @return {@link HandlerRegistration}
+     * 
+     * @deprecated Use {@link ol.source.Tile#addTileLoadStartListener(EventListener)}
      */
+    @Deprecated
     public static HandlerRegistration addTileLoadStartListener(UrlTile source, final TileLoadStartListener listener) {
         return observe(source, "tileloadstart", new EventListener<Tile.Event>() {
 
@@ -266,7 +316,10 @@ public final class OLUtil {
      * @param listener
      *            {@link TileLoadEndListener}
      * @return {@link HandlerRegistration}
+     * 
+     * @deprecated Use {@link ol.source.Tile#addTileLoadEndListener(EventListener)}
      */
+    @Deprecated
     public static HandlerRegistration addTileLoadEndListener(UrlTile source, final TileLoadEndListener listener) {
         return observe(source, "tileloadend", new EventListener<Tile.Event>() {
 
@@ -486,27 +539,25 @@ public final class OLUtil {
 
     /**
      * Gets the current zoom level of the given {@link View}.
-     *
      * @param v
      *            {@link View}
-     * @return Zoom on success, else -1
+     * @return Zoom on success, else {@link Double#NaN}
      */
-    private static native int getZoom(View v) /*-{
-		return v.getZoom() || -1;
+    private static native double getZoom(View v) /*-{
+	return v.getZoom() || NaN;
     }-*/;
 
     /**
      * Gets the current zoomlevel of the given {@link Map}.
-     *
      * @param map
      *            {@link Map}
-     * @return zoomlevel on success, else -1
+     * @return zoomlevel on success, else {@link Double#NaN}
      */
-    public static int getZoomLevel(Map map) {
+    public static double getZoomLevel(Map map) {
         View v = map.getView();
         // try to get zoom
-        int z = getZoom(v);
-        if(z >= 0) {
+        double z = getZoom(v);
+        if(!Double.isNaN(z)) {
             return z;
         }
         // zoom is undefined, so check resolution
@@ -530,14 +581,12 @@ public final class OLUtil {
                             double resolution = resolutions[i];
                             if(resolution <= zoomResolution) {
                                 if(i > 1) {
-                                    // check to which zoomlevel resolution is
-                                    // nearer and prefer the larger number by
-                                    // (75%:25%=3)
-                                    if((zoomResolution - resolution) / (dPreviousResolution - zoomResolution) < 3) {
-                                        return i;
-                                    } else {
-                                        return i - 1;
-                                    }
+                                    // calculate the delta of the resolution
+                                    // compared to the current and the previous
+                                    // zoomlevel
+                                    double delta = (resolution - zoomResolution) / (dPreviousResolution - resolution);
+                                    // adjust the integer zoomlevel to the delta
+                                    return i + delta;
                                 } else {
                                     return 0;
                                 }
@@ -548,7 +597,7 @@ public final class OLUtil {
                 }
             }
         }
-        return -1;
+        return Double.NaN;
     }
 
     /**

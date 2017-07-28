@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2016 gwt-ol3
+ * Copyright 2014, 2017 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,35 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol.interaction;
+package ol;
 
-import ol.GwtOL3BaseTestCase;
-import ol.Observable;
+import jsinterop.annotations.JsFunction;
 
 /**
- * 
- * @author Tino Desjardins
- *
+ * @author gkresic
  */
-public class SelectTest extends GwtOL3BaseTestCase {
-
-    public void testSelect() {
-
-        injectUrlAndTest(new TestWithInjection() {
-            
-            @Override
-            public void test() {
-                
-                SelectOptions selectOptions = new SelectOptions();
-                Select select = new Select(selectOptions);
-                
-                assertNotNull(select);
-                assertTrue(select instanceof Observable);
-                assertTrue(select instanceof Interaction);
-            }
-            
-        });
- 
-    }
-
+@JsFunction
+public interface DragBoxEndConditionFunction {
+    boolean call(MapBrowserEvent event, Pixel pixel1, Pixel pixel2);
 }

@@ -32,7 +32,9 @@ public class DragZoomTest extends GwtOL3BaseTestCase {
             
             @Override
             public void test() {
-                DragZoom dragZoom = new DragZoom();
+            	
+            	DragZoomOptions dragZoomOptions = new DragZoomOptions();
+                DragZoom dragZoom = new DragZoom(dragZoomOptions);
                 
                 assertNotNull(dragZoom);
                 assertTrue(dragZoom instanceof Observable);
