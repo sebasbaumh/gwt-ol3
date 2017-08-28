@@ -40,6 +40,18 @@ public class Coordinate extends JavaScriptObject {
     public static native Coordinate create(@NotNull double x, @NotNull double y) /*-{
         return [x, y];
     }-*/;
+    
+    /**
+     * Creates an instance.
+     *
+     * @param x X-coordinate (longitude)
+     * @param y Y-coordinate (latitude)
+     * @param z Z-coordinate (height)
+     * @return {@link Coordinate}
+     */
+    public static native Coordinate create(@NotNull double x, @NotNull double y, @NotNull double z) /*-{
+        return [x, y, z];
+    }-*/;
 
     /**
      * Add `delta` to `coordinate`. `coordinate` is modified in place and
@@ -110,11 +122,8 @@ public class Coordinate extends JavaScriptObject {
 	 *
 	 * @param x X-coordinate (longitude)
 	 */
-	public final double setX(double x) {
-		if (this.getDimension() > 0) {
-			return this.set(0, x);
-		}
-		return Double.NaN;
+	public final void setX(double x) {
+	    this.set(0, x);
 	}
 
     /**
@@ -134,23 +143,29 @@ public class Coordinate extends JavaScriptObject {
 	 *
 	 * @param y Y-coordinate (latitude)
 	 */
-	public final double setY(double y) {
-		if (this.getDimension() > 1) {
-			return this.set(1, y);
-		}
-		return Double.NaN;
+	public final void setY(double y) {
+		this.set(1, y);
 	}
 
     /**
-     * Gets the Y-coordinate (latitude).
+     * Gets the Z-coordinate (height).
      *
-     * @return Y-coordinate (latitude)
+     * @return Z-coordinate (height)
      */
     public final double getZ() {
         if (this.getDimension() > 2) {
             return this.get(2);
         }
         return Double.NaN;
+    }
+    
+    /**
+     * Sets the Z-coordinate (height).
+     *
+     * @param z Z-coordinate (height)
+     */
+    public final void setZ(double z) {
+        this.set(2, z);
     }
 
     /**
@@ -188,8 +203,7 @@ public class Coordinate extends JavaScriptObject {
      * Default is `0`
      * @return format function
      */
-    public final static native JavaScriptObject createStringXY(int fractionDigits)
-    /*-{
+    public final static native JavaScriptObject createStringXY(int fractionDigits) /*-{
     	return $wnd.ol.coordinate.createStringXY(fractionDigits);
     }-*/;
 

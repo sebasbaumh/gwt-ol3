@@ -22,6 +22,11 @@ import ol.OLUtil;
 import ol.control.Control;
 import ol.control.MousePosition;
 import ol.geom.Polygon;
+import ol.layer.Base;
+import ol.layer.LayerOptions;
+import ol.layer.Tile;
+import ol.source.Osm;
+import ol.source.XyzOptions;
 
 /**
  * 
@@ -74,6 +79,16 @@ public final class DemoUtils {
     	tranformedCoordinates[0] = OLUtil.transform(coordinates[0], "EPSG:4326", "EPSG:3857");
     	return OLFactory.createPolygon(tranformedCoordinates);
 
+    }
+    
+    public static Base createOsmLayer() {
+        XyzOptions osmSourceOptions = OLFactory.createOptions();
+
+        Osm osmSource = new Osm(osmSourceOptions);
+        LayerOptions osmLayerOptions = OLFactory.createOptions();
+        osmLayerOptions.setSource(osmSource);
+
+        return new Tile(osmLayerOptions);
     }
     
 }

@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.github.tdesjardins</groupId>
         <artifactId>gwt-ol3-parent</artifactId>
-        <version>3.0.3</version>
+        <version>4.0.1</version>
     </parent>
     <artifactId>gwt-ol3-demo</artifactId>
     <packaging>gwt-app</packaging>
@@ -17,6 +17,16 @@
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-dev</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>com.google.elemental2</groupId>
+        	<artifactId>elemental2-core</artifactId>
+        	<version>1.0.0-beta-1</version>
+        </dependency>
+        <dependency>
+        	<groupId>com.google.elemental2</groupId>
+        	<artifactId>elemental2-dom</artifactId>
+        	<version>1.0.0-beta-1</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
