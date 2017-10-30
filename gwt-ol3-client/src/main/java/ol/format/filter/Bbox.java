@@ -13,17 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol;
+package ol.format.filter;
+
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import ol.Extent;
 
 /**
- *
+ * Represents a <BBOX> operator to test whether a geometry-valued
+ * property intersects a fixed bounding box.
+ * 
  * @author Tino Desjardins
  *
  */
-public abstract class GwtOL3BaseTestCase extends BaseTestCase {
+@JsType(isNative = true)
+public class Bbox extends Filter {
 
-    public GwtOL3BaseTestCase() {
-        super("http://openlayers.org/en/v4.4.2/build/ol.js", "ol.GwtOL3Test", 10000);
-    }
+	/**
+	 *
+	 * @param geometryName Geometry name to use.
+	 * @param extent Extent.
+	 * @param srsName SRS name. No srsName attribute will be set on geometries when this is not provided.
+	 */
+	public Bbox(String geometryName, Extent extent, String srsName){
+		super("BBOX");
+	}
+	
+	@JsProperty
+	public native void setGeometryName(String geometryName);
+	
+	@JsProperty
+    public native void setExtent(Extent extent);
+	
+	@JsProperty
+    public native void setSrsName(String srsName);
 
 }

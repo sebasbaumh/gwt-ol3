@@ -28,6 +28,8 @@ import ol.events.condition.ConditionTest;
 import ol.format.GeoJsonTest;
 import ol.format.OsmXmlTest;
 import ol.format.WfsTest;
+import ol.format.WktTest;
+import ol.format.filter.FilterTest;
 import ol.geom.CircleTest;
 import ol.geom.GeometryCollectionTest;
 import ol.geom.PointTest;
@@ -77,6 +79,7 @@ public class GwtOL3TestSuite extends GWTTestSuite {
         suite.addTestSuite(FeatureTest.class);
         suite.addTestSuite(GraticuleTest.class);
         suite.addTestSuite(MapTest.class);
+        suite.addTestSuite(ObservableTest.class);
         suite.addTestSuite(OverlayTest.class);
         suite.addTestSuite(SphereTest.class);
         suite.addTestSuite(ViewTest.class);
@@ -98,9 +101,11 @@ public class GwtOL3TestSuite extends GWTTestSuite {
         suite.addTestSuite(ConditionTest.class);
         
         // formats
+        suite.addTestSuite(FilterTest.class);
         suite.addTestSuite(GeoJsonTest.class);
         suite.addTestSuite(OsmXmlTest.class);
         suite.addTestSuite(WfsTest.class);
+        suite.addTestSuite(WktTest.class);
 
         // geometries
         suite.addTestSuite(CircleTest.class);

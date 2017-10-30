@@ -13,17 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol;
+package ol.format.filter;
+
+import jsinterop.annotations.JsType;
 
 /**
- *
+ * Represents a <PropertyIsLessThan> comparison operator.
+ * 
  * @author Tino Desjardins
  *
  */
-public abstract class GwtOL3BaseTestCase extends BaseTestCase {
+@JsType(isNative = true)
+public class LessThan extends ComparisonBinary {
 
-    public GwtOL3BaseTestCase() {
-        super("http://openlayers.org/en/v4.4.2/build/ol.js", "ol.GwtOL3Test", 10000);
+    public LessThan(String propertyName, Number expression) {
+        super("PropertyIsLessThan", propertyName, expression);
     }
-
+	
 }

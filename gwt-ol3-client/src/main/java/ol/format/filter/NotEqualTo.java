@@ -18,17 +18,28 @@ package ol.format.filter;
 import jsinterop.annotations.JsType;
 
 /**
- * Represents a logical <And> operator 
- * between two or more filter conditions.
+ * Represents a <PropertyIsNotEqualTo> comparison operator.
  * 
- * @author hmgn
+ * @author Tino Desjardins
  *
  */
 @JsType(isNative = true)
-public class And extends LogicalNary {
+public class NotEqualTo extends ComparisonBinary {
 
-	public And(Filter... conditions) {
-	    //super("And", conditions);
-	}
-
+    public NotEqualTo(String propertyName, String expression) {
+        super("PropertyIsNotEqualTo", propertyName, expression);
+    }
+    
+    public NotEqualTo(String propertyName, String expression, boolean matchCase) {
+        super("PropertyIsNotEqualTo", propertyName, expression, matchCase);
+    }
+    
+    public NotEqualTo(String propertyName, Number expression) {
+        super("PropertyIsNotEqualTo", propertyName, expression);
+    }
+    
+    public NotEqualTo(String propertyName, Number expression, boolean matchCase) {
+        super("PropertyIsNotEqualTo", propertyName, expression, matchCase);
+    }
+	
 }

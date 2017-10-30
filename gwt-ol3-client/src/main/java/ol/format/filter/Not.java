@@ -13,17 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol;
+package ol.format.filter;
+
+import jsinterop.annotations.JsType;
 
 /**
- *
+ * Represents a logical <Not> operator for a filter condition.
+ * 
  * @author Tino Desjardins
  *
  */
-public abstract class GwtOL3BaseTestCase extends BaseTestCase {
+@JsType(isNative = true)
+public class Not extends Filter {
 
-    public GwtOL3BaseTestCase() {
-        super("http://openlayers.org/en/v4.4.2/build/ol.js", "ol.GwtOL3Test", 10000);
+    public Not(Filter condition) {
+        super("Not");
     }
 
 }

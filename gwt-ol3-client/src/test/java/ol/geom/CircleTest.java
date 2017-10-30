@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2016 gwt-ol3
+ * Copyright 2014, 2017 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ package ol.geom;
 
 import ol.Coordinate;
 import ol.GwtOL3BaseTestCase;
-import ol.OLFactory;
+import ol.Extent;
 
 /**
  * A test case for {@link Circle}.
@@ -29,10 +29,10 @@ public class CircleTest extends GwtOL3BaseTestCase {
     public void testCircle() {
 
     	injectUrlAndTest(() -> {
-        	
+
         	double radius = 5;
-            
-            Circle circle = OLFactory.createCircle(OLFactory.createCoordinate(10, 10), radius);
+
+            Circle circle = new Circle(Coordinate.create(10, 10), radius);
             assertNotNull(circle);
             assertTrue(circle instanceof Geometry);
 
@@ -40,11 +40,14 @@ public class CircleTest extends GwtOL3BaseTestCase {
             assertNotNull(coordinate);
             assert(10 == coordinate.getX());
             assert(10 == coordinate.getY());
-            
+
             assert(radius == circle.getRadius());
 
+            assertTrue(circle.intersectsExtent(Extent.create(0, 0, 15, 15)));
+            assertFalse(circle.intersectsExtent(Extent.create(0, 0, 5, 5)));
+
         });  	
-                
+
     }
 
 }

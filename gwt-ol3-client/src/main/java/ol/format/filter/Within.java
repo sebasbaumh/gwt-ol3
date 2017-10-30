@@ -13,17 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol;
+package ol.format.filter;
+
+import jsinterop.annotations.JsType;
+import ol.geom.Geometry;
 
 /**
- *
+ * Represents a <Within> operator to test whether a
+ * geometry-valued property is within a given geometry.
+ * 
  * @author Tino Desjardins
  *
  */
-public abstract class GwtOL3BaseTestCase extends BaseTestCase {
+@JsType(isNative = true)
+public class Within extends Spatial {
 
-    public GwtOL3BaseTestCase() {
-        super("http://openlayers.org/en/v4.4.2/build/ol.js", "ol.GwtOL3Test", 10000);
+    /**
+     * @param geometryName Geometry name to use.
+     * @param geometry Geometry.
+     */
+    public Within(String geometryName, Geometry geometry) {
+        super("Within", geometryName, geometry, null);
     }
 
+	/**
+	 *
+	 * @param geometryName Geometry name to use.
+	 * @param geometry Geometry.
+	 * @param srsName SRS name. No srsName attribute will be set on geometries when this is not provided.
+	 */
+	public Within(String geometryName, Geometry geometry, String srsName){
+		super("Within", geometryName, geometry, srsName);
+	}
+	
 }

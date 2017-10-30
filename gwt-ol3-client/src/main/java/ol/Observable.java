@@ -15,6 +15,9 @@
  *******************************************************************************/
 package ol;
 
+import com.google.gwt.event.shared.HandlerRegistration;
+
+import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsType;
 import ol.event.EventListener;
 import ol.events.Event;
@@ -36,6 +39,21 @@ public abstract class Observable implements EventTarget {
      * Increases the revision counter and dispatches a 'change' event.
      */
     public native void changed();
+
+    /**
+     * Dispatches an event and calls all listeners listening for events of this type.
+     *
+     * @param eventType type of the event to dispatch
+     */
+    public native void dispatchEvent(String eventType);
+
+    /**
+     * Get the version number for this object. Each time the object is modified,
+     * its version number will be incremented.
+     *
+     * @return Revision.
+     */
+    public native int getRevision();
 
     /**
      * Listen for a certain type of event.
@@ -78,4 +96,12 @@ public abstract class Observable implements EventTarget {
      */
     public static native void unByKey(EventsKey key);
 
+    /**
+     * Generic change event. Triggered when the revision counter is increased.
+     */
+    @JsOverlay
+    public final HandlerRegistration addChangeListener(final EventListener<Event> listener) {
+        return OLUtil.observe(this, "change", listener);
+    }
+    
 }

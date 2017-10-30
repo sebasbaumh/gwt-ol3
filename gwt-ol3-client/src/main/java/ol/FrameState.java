@@ -15,15 +15,26 @@
  *******************************************************************************/
 package ol;
 
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+
 /**
+ * Rendering frame state.
  *
  * @author Tino Desjardins
  *
  */
-public abstract class GwtOL3BaseTestCase extends BaseTestCase {
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+public class FrameState implements Options {
 
-    public GwtOL3BaseTestCase() {
-        super("http://openlayers.org/en/v4.4.2/build/ol.js", "ol.GwtOL3Test", 10000);
-    }
+    @JsProperty
+    public native double getPixelRatio();
+
+    @JsProperty
+    public native int getTime();
+
+    @JsProperty
+    public native ViewState getViewState();
 
 }

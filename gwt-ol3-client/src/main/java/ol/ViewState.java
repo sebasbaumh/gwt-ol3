@@ -15,15 +15,29 @@
  *******************************************************************************/
 package ol;
 
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import ol.proj.Projection;
+
 /**
  *
  * @author Tino Desjardins
  *
  */
-public abstract class GwtOL3BaseTestCase extends BaseTestCase {
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+public class ViewState implements Options {
 
-    public GwtOL3BaseTestCase() {
-        super("http://openlayers.org/en/v4.4.2/build/ol.js", "ol.GwtOL3Test", 10000);
-    }
+    @JsProperty
+    public native Coordinate getCenter();
+
+    @JsProperty
+    public native Projection getProjection();
+
+    @JsProperty
+    public native double getResolution();
+
+    @JsProperty
+    public native double getRotation();
 
 }

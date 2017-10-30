@@ -13,31 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol.interaction;
+package ol.format;
 
-import ol.GwtOL3BaseTestCase;
-import ol.Observable;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import ol.Options;
 
 /**
- * 
- * @author Tino Desjardins
+ * WKT options.
  *
+ * @author gkresic
+ *
+ * @see https://openlayers.org/en/latest/apidoc/ol.format.WKT.html
  */
-public class DoubleClickZoomTest extends GwtOL3BaseTestCase {
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+public class WktOptions implements Options {
 
-    public void testDoubleClickZoom() {
+	/**
+	 * @param splitCollection Whether to split GeometryCollections into multiple features on reading. Default is <code>false</code>.
+	 */
+	@JsProperty
+	public native void setSplitCollection(boolean splitCollection);
 
-
-        injectUrlAndTest(() -> {
-            DoubleClickZoom doubleClickZoom = new DoubleClickZoom();
-
-            assertNotNull(doubleClickZoom);
-            assertTrue(doubleClickZoom instanceof Observable);
-            assertTrue(doubleClickZoom instanceof Interaction);
-
-            assertNull(doubleClickZoom.getMap());
-        });
-
-    }
+	@JsProperty
+	public native boolean getSplitCollection();
 
 }

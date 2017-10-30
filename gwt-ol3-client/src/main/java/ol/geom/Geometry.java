@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2016 gwt-ol3
+ * Copyright 2014, 2017 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -71,7 +71,7 @@ public abstract class Geometry extends Observable {
      *            The rotation center.
      */
     public native void rotate(double angle, Coordinate anchor);
-    
+
     /**
      * Create a simplified version of this geometry. For linestrings, this uses
      * the the
@@ -102,7 +102,7 @@ public abstract class Geometry extends Observable {
      *         modified in place.
      */
     public native Geometry transform(String source, String destination);
-    
+
     /**
      * Transform each coordinate of the geometry from one coordinate reference
      * system to another. The geometry is modified in place. For example, a line
@@ -131,4 +131,5 @@ public abstract class Geometry extends Observable {
      *          true if intersects otherwise false
      */
     public native boolean intersectsCoordinate(Coordinate coordinate);
+
 }
