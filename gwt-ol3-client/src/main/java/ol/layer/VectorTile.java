@@ -13,32 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol;
+package ol.layer;
 
-import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
 /**
- * Object parameter of the {@link ol.Collection} features event listener.
+ * Layer for vector tile data that is rendered client-side. Note that any property set
+ * in the options is set as a {@link ol.Object} property on the layer object; for
+ * example, setting `title: 'My Title'` in the options means that `title` is
+ * observable, and has get/set accessors.
+ * 
+ * @author Tino Desjardins
  *
- * e.g.
- * Select select = ...
- * select.getFeatures().on("<event_name>"), function (SelectObjectEvent){...});
- * 
- * @author mribeiro
- * 
- * @deprecated Use {@link ol.Collection.Event} instead.
  */
-@Deprecated
 @JsType(isNative = true)
-public interface FeatureObjectEvent extends ObjectEvent {
+public class VectorTile extends Vector {
 
-    /**
-     * The name feature involved in the event.
-     *
-     * @return {@link Feature}
-     *          feature.
-     */
-    @JsProperty
-    Feature getElement();
+    public VectorTile() {}
+
+    public VectorTile(VectorTileLayerOptions vectorTileOptions) {}
+
 }

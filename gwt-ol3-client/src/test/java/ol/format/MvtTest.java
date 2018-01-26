@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2015 gwt-ol3
+ * Copyright 2014, 2017 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,23 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol.event;
+package ol.format;
 
-import ol.MapBrowserEvent;
+import ol.GwtOL3BaseTestCase;
 
 /**
- * A listener for clicks.
+ * Test for Mapbox Vector Tile (MVT) format.
  * 
- * @author sbaumhekel
+ * @author Tino Desjardins
+ *
  */
-public interface ClickListener {
+public class MvtTest extends GwtOL3BaseTestCase {
 
-    /**
-     * Fired on a click.
-     * 
-     * @param evt
-     *            {@link MapBrowserEvent}
-     */
-    void onClick(MapBrowserEvent evt);
+    public void testMvt() {
+
+        injectUrlAndTest(() -> {
+
+            Mvt mvt = new Mvt();
+            assertNotNull(mvt);
+
+            MvtOptions mvtOptions = new MvtOptions();
+            Mvt mvt2 = new Mvt(mvtOptions);
+            assertNotNull(mvt2);
+
+        });
+    }
 
 }

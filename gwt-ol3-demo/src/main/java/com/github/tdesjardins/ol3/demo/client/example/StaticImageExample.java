@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2016 gwt-ol3
+ * Copyright 2014, 2017 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,13 @@ package com.github.tdesjardins.ol3.demo.client.example;
 
 import com.github.tdesjardins.ol3.demo.client.utils.DemoUtils;
 
-import ol.Attribution;
-import ol.AttributionOptions;
 import ol.Collection;
+import ol.Coordinate;
 import ol.Extent;
 import ol.Map;
 import ol.MapOptions;
 import ol.OLFactory;
+import ol.Size;
 import ol.View;
 import ol.ViewOptions;
 import ol.layer.Base;
@@ -50,7 +50,7 @@ public class StaticImageExample implements Example {
 
         ProjectionOptions projectionOptions = OLFactory.createOptions();
 
-        Extent imageExtent = OLFactory.createExtent(0, 0, 1024, 968);
+        Extent imageExtent = new Extent(0, 0, 1024, 968);
 
         projectionOptions.setCode("pixel");
         projectionOptions.setExtent(imageExtent);
@@ -60,19 +60,12 @@ public class StaticImageExample implements Example {
 
         ImageStaticOptions imageStaticOptions = OLFactory.createOptions();
         imageStaticOptions.setUrl("http://imgs.xkcd.com/comics/online_communities.png");
-        imageStaticOptions.setImageSize(OLFactory.createSize(1024, 968));
+        imageStaticOptions.setImageSize(new Size(1024, 968));
         imageStaticOptions.setImageExtent(imageExtent);
         imageStaticOptions.setProjection(projection);
 
         // create attribution
-        AttributionOptions attributionOptions = OLFactory.<AttributionOptions>createOptions();
-        attributionOptions.setHtml("&copy; <a href=\"http://xkcd.com/license.html\">xkcd</a>");
-
-        Attribution attribution = new Attribution(attributionOptions);
-        Attribution[] attributions = new Attribution[1];
-        attributions[0] = attribution;
-
-        imageStaticOptions.setAttributions(attributions);
+        imageStaticOptions.setAttributions("&copy; <a href=\"http://xkcd.com/license.html\">xkcd</a>");
 
         ImageStatic imageStatic = new ImageStatic(imageStaticOptions);
 
@@ -84,7 +77,7 @@ public class StaticImageExample implements Example {
         layers.push(image);
 
         ViewOptions viewOptions = OLFactory.createOptions();
-        viewOptions.setCenter(OLFactory.createCoordinate(500, 500));
+        viewOptions.setCenter(new Coordinate(500, 500));
         viewOptions.setProjection(projection);
         viewOptions.setZoom(2);
 

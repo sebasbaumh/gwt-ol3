@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2016 gwt-ol3
+ * Copyright 2014, 2017 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,10 @@ package com.github.tdesjardins.ol3.demo.client.example;
 import com.github.tdesjardins.ol3.demo.client.constants.DemoConstants;
 import com.github.tdesjardins.ol3.demo.client.utils.DemoUtils;
 
-import ol.Attribution;
-import ol.AttributionOptions;
 import ol.Coordinate;
 import ol.Map;
 import ol.MapOptions;
 import ol.OLFactory;
-import ol.OLUtil;
 import ol.View;
 import ol.ViewOptions;
 import ol.control.Rotate;
@@ -58,7 +55,7 @@ public class WmtsExample implements Example {
 
         // create a projection       
         Projection projection = Projection.get(DemoConstants.EPSG_3857);
-        
+
         // create a OSM-layer
         XyzOptions osmSourceOptions = OLFactory.createOptions();
 
@@ -67,7 +64,7 @@ public class WmtsExample implements Example {
         osmLayerOptions.setSource(osmSource);
 
         Tile osmLayer = new Tile(osmLayerOptions);
-        
+
         WmtsOptions wmtsOptions = OLFactory.createOptions();
         wmtsOptions.setUrl("https://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Population_Density/MapServer/WMTS/");
         wmtsOptions.setLayer("0");
@@ -77,17 +74,10 @@ public class WmtsExample implements Example {
         wmtsOptions.setProjection(projection);
         wmtsOptions.setWrapX(true);
         wmtsOptions.setTileGrid(this.createWmtsTileGrid(projection));
-        
-        // create attribution
-        AttributionOptions attributionOptions = OLFactory.<AttributionOptions>createOptions();
-        attributionOptions.setHtml("Tiles &copy; <a href=\"http://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Population_Density/MapServer/\">ArcGIS</a>");
 
-        Attribution attribution = new Attribution(attributionOptions);
-        Attribution[] attributions = new Attribution[1];
-        attributions[0] = attribution;
-        
-        wmtsOptions.setAttributions(attributions);
-        
+        // create attribution
+        wmtsOptions.setAttributions("Tiles &copy; <a href=\"http://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Population_Density/MapServer/\">ArcGIS</a>");
+
         Wmts wmtsSource = new Wmts(wmtsOptions);
 
         LayerOptions wmtsLayerOptions = OLFactory.createOptions();
@@ -101,7 +91,7 @@ public class WmtsExample implements Example {
         viewOptions.setProjection(projection);
         View view = new View(viewOptions);
 
-        Coordinate centerCoordinate = OLFactory.createCoordinate(-11158582, 4813697);
+        Coordinate centerCoordinate = new Coordinate(-11158582, 4813697);
 
         view.setCenter(centerCoordinate);
         view.setZoom(4);
@@ -127,7 +117,7 @@ public class WmtsExample implements Example {
         map.addControl(new Rotate());
 
     }
-    
+
     /**
      * Creates a WMTS tilegrid.
      * 
@@ -135,27 +125,27 @@ public class WmtsExample implements Example {
      * @return WMTS tilegrid
      */
     private TileGrid createWmtsTileGrid(Projection projection) {
-        
+
         WmtsTileGridOptions wmtsTileGridOptions = OLFactory.createOptions();
 
         double[] resolutions = new double[14];
         String[] matrixIds = new String[14];
-        
-        double width = OLUtil.getWidth(projection.getExtent());
+
+        double width = projection.getExtent().getWidth();
         double matrixWidth = width / 256;
-        
+
         for (int i = 0; i < 14; i++) {
             resolutions[i] = matrixWidth / Math.pow(2, i);
             matrixIds[i] = String.valueOf(i);
         }
-        
-        Coordinate tileGridOrigin = OLUtil.getTopLeft(projection.getExtent());
+
+        Coordinate tileGridOrigin = projection.getExtent().getTopLeft();
         wmtsTileGridOptions.setOrigin(tileGridOrigin);
         wmtsTileGridOptions.setResolutions(resolutions);
         wmtsTileGridOptions.setMatrixIds(matrixIds);
-        
+
         return new WmtsTileGrid(wmtsTileGridOptions);
-        
+
     }
 
 }

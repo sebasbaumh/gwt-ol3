@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2015 gwt-ol3
+ * Copyright 2014, 2017 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol.event;
+package proj4;
 
-import ol.MapEvent;
+import com.google.gwt.junit.tools.GWTTestSuite;
+import junit.framework.TestSuite;
 
 /**
- * A listener for map movements.
- * @author sbaumhekel
+ * Testsuite for GwtOL3.
+ *
+ * @author Tino Desjardins
+ *
  */
-public interface MapMoveListener {
+public class GwtProj4TestSuite extends GWTTestSuite {
 
-    /**
-     * Fired on a move of the map position.
-     * @param evt {@link MapEvent}
-     */
-    void onMapMove(MapEvent evt);
+    public static TestSuite suite() {
+
+        TestSuite suite = new TestSuite("Tests for GwtProj4-Wrapper");
+
+        suite.addTestSuite(Proj4Test.class);
+
+        return suite;
+
+    }
 
 }
+

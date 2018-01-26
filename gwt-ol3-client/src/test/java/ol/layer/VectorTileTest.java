@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2016 gwt-ol3
+ * Copyright 2014, 2017 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,26 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol;
+package ol.layer;
 
-import jsinterop.annotations.JsType;
+import ol.GwtOL3BaseTestCase;
 
 /**
- * An attribution for a layer source.
- * 
+ * A test case for {@link ol.layer.VectorTile}.
+ *
  * @author Tino Desjardins
  *
  */
-@JsType(isNative = true)
-public class Attribution {
-    
-    public Attribution(AttributionOptions attributionOptions) {}
-    
-    /**
-     * Gets the HTML markup for this attribution.
-     * 
-     * @return html
-     */
-    public native String getHTML();
+public class VectorTileTest extends GwtOL3BaseTestCase {
+
+    public void testVectorTileLayer() {
+
+        injectUrlAndTest(() -> {
+
+            VectorTileLayerOptions vectorLayerOptions = new VectorTileLayerOptions();
+            assertNotNull(vectorLayerOptions);
+
+            VectorTile vectorLayer = new VectorTile(vectorLayerOptions);
+            assertTrue(vectorLayer instanceof Base);
+            assertTrue(vectorLayer instanceof Vector);
+
+        });
+
+    }
 
 }

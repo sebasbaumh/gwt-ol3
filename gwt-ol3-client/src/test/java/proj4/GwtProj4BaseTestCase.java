@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2016 gwt-ol3
+ * Copyright 2014, 2017 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,27 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol.event;
+package proj4;
 
-import ol.MapEvent;
-import ol.source.Tile;
+import com.github.desjardins.gwt.junit.client.BaseTestCase;
 
 /**
- * A listener for tile loading errors.
- * 
- * @author sbaumhekel
- * 
- * @deprecated Use {@link ol.source.Tile#addTileLoadErrorListener(EventListener)}
+ *
+ * @author Tino Desjardins
+ *
  */
-@Deprecated
-public interface TileLoadErrorListener {
+public abstract class GwtProj4BaseTestCase extends BaseTestCase {
 
-    /**
-     * Fired if tile loading results in an error.
-     * 
-     * @param evt
-     *            {@link MapEvent}
-     */
-    void onTileLoadError(Tile.Event evt);
+    public GwtProj4BaseTestCase() {
+        super("https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.4/proj4.js", "proj4.GwtProj4Test", 10000);
+    }
 
 }
