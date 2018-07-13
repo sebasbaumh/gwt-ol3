@@ -1,9 +1,8 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.8.0//EN" "http://gwtproject.org/doctype/2.8.0/gwt-module.dtd">
 <module>
-    <inherits name="com.google.gwt.user.User"/>
     <inherits name="elemental2.dom.Dom" />
     <inherits name="com.github.desjardins.elemental.ElementalExtension" />
-    <!-- This module will be optional in future when deprecated methods for proj4js usage will be removed. -->
+    <!-- This module is optional (proj4js). -->
     <inherits name="proj4.GwtProj4"/>
 
     <source path=""/>

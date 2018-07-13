@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2017 gwt-ol3
+ * Copyright 2014, 2018 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ import ol.control.ZoomSliderTest;
 import ol.control.ZoomToExtentTest;
 import ol.events.condition.ConditionTest;
 import ol.format.GeoJsonTest;
+import ol.format.GpxTest;
 import ol.format.MvtTest;
 import ol.format.OsmXmlTest;
 import ol.format.WfsTest;
@@ -60,6 +61,7 @@ import ol.source.BingMapsTest;
 import ol.source.ClusterTest;
 import ol.source.ImageArcGISRestTest;
 import ol.source.ImageStaticTest;
+import ol.source.RasterTest;
 import ol.source.TileWmsTest;
 import ol.source.VectorTileTest;
 import ol.style.AtlasManagerTest;
@@ -69,16 +71,16 @@ import ol.style.TextTest;
 import ol.tilegrid.TileGridTest;
 
 /**
- * Testsuite for GwtOL3.
+ * Testsuite for GwtOL.
  *
  * @author Tino Desjardins
  *
  */
-public class GwtOL3TestSuite extends GWTTestSuite {
+public class GwtOLTestSuite extends GWTTestSuite {
 
     public static TestSuite suite() {
 
-        TestSuite suite = new TestSuite("Tests for GwtOL3-Wrapper");
+        TestSuite suite = new TestSuite("Tests for GwtOL-Wrapper");
 
         suite.addTestSuite(CollectionTest.class);
         suite.addTestSuite(CoordinateTest.class);
@@ -114,6 +116,7 @@ public class GwtOL3TestSuite extends GWTTestSuite {
         // formats
         suite.addTestSuite(FilterTest.class);
         suite.addTestSuite(GeoJsonTest.class);
+        suite.addTestSuite(GpxTest.class);
         suite.addTestSuite(MvtTest.class);
         suite.addTestSuite(OsmXmlTest.class);
         suite.addTestSuite(WfsTest.class);
@@ -157,6 +160,7 @@ public class GwtOL3TestSuite extends GWTTestSuite {
         suite.addTestSuite(ClusterTest.class);
         suite.addTestSuite(ImageArcGISRestTest.class);
         suite.addTestSuite(ImageStaticTest.class);
+        suite.addTestSuite(RasterTest.class);
         suite.addTestSuite(TileWmsTest.class);
         suite.addTestSuite(VectorTileTest.class);
 

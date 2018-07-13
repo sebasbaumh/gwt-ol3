@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2017 gwt-ol3
+ * Copyright 2014, 2018 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,14 @@ package com.github.tdesjardins.ol3.demo.client.example;
  * @author Tino Desjardins
  *
  */
-public enum OL3ExampleType {
+public enum OLExampleType {
 
     AnimationExample(new AnimationExample()),
     ArcGISExample(new ArcGISExample()),
     ClusterExample(new ClusterExample()),
+    ConstrainedExample(new ConstrainedViewExample()),
     GeoJSONExample(new GeoJsonExample()),
+    GpxExample(new GpxExample()),
     GraticuleExample(new GraticuleExample()),
     ImageExample(new StaticImageExample()),
     MapBoxExample(new MapboxExample()),
@@ -37,6 +39,7 @@ public enum OL3ExampleType {
     MvtExample(new MvtExample()),
     OsmExample(new OsmExample()),
     OverlayExample(new OverlayExample()),
+    RasterExample(new RasterExample()),
     SelectFeatureExample(new SelectFeaturesExample()),
     TileExample(new TileExample()),
     TileWmsExample(new TileWmsExample()),
@@ -47,7 +50,7 @@ public enum OL3ExampleType {
 
     private transient Example example;
 
-    OL3ExampleType(Example example) {
+    OLExampleType(Example example) {
         this.example = example;
     }
 
