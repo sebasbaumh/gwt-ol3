@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2017 gwt-ol3
+ * Copyright 2014, 2018 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  *******************************************************************************/
 package com.github.tdesjardins.ol3.demo.client.utils;
 
+import com.github.tdesjardins.ol3.demo.client.constants.DemoConstants;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.LinkElement;
 import com.google.gwt.dom.client.Style.Display;
@@ -40,7 +41,7 @@ import ol.source.Osm;
 import ol.source.XyzOptions;
 
 /**
- * 
+ *
  * @author Tino Desjardins
  *
  */
@@ -51,9 +52,9 @@ public final class DemoUtils {
     }
 
     /**
-     * Creates some default controls.
-     * 
-     * @param controls
+     * Creates some default controls and adds it to the collection.
+     *
+     * @param controls collection with controls
      */
     public static void addDefaultControls(final Collection<Control> controls) {
 
@@ -96,7 +97,7 @@ public final class DemoUtils {
 
     /**
      * Creates a test polygon geometry (triangle).
-     * 
+     *
      * @return test polygon geometry (EPSG:3857)
      */
     public static Polygon createTestPolygon() {
@@ -115,7 +116,7 @@ public final class DemoUtils {
 
         Coordinate[][] tranformedCoordinates = new Coordinate[coordinates.length][];
 
-        tranformedCoordinates[0] = OLUtil.transform(coordinates[0], "EPSG:4326", "EPSG:3857");
+        tranformedCoordinates[0] = OLUtil.transform(coordinates[0], DemoConstants.EPSG_4326, DemoConstants.EPSG_3857);
         return OLFactory.createPolygon(tranformedCoordinates);
 
     }

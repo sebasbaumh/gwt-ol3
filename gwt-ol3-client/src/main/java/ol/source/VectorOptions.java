@@ -21,6 +21,7 @@ import jsinterop.annotations.JsType;
 
 import ol.Collection;
 import ol.Feature;
+import ol.featureloader.FeatureLoader;
 
 /**
  * Vector source options.
@@ -67,14 +68,11 @@ public class VectorOptions extends SourceOptions {
     public native void setUseSpatialIndex(boolean useSpatialIndex);
 
     /**
-     * Wrap the world horizontally. Default is true. For vector editing across
-     * the -180° and 180° meridians to work properly, this should be set to
-     * false. The resulting geometry coordinates will then exceed the world
-     * bounds.
+     * The loader function used to load features, from a remote source for example.
+     * If this is not set and url is set, the source will create and use an XHR feature loader.
      * 
-     * @param wrapX wrap?
+     * @param featureLoader 
      */
     @JsProperty
-    public native void setWrapX(boolean wrapX);
-
+    public native void setLoader(FeatureLoader featureLoader);
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2017 gwt-ol3
+ * Copyright 2014, 2018 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@
 package ol.layer;
 
 import ol.Feature;
-import ol.GenericFunction;
 import ol.GwtOLBaseTestCase;
 import ol.style.Style;
+import ol.style.StyleFunction;
 
 /**
  * A test case for {@link ol.layer.Vector}.
@@ -38,7 +38,7 @@ public class VectorTest extends GwtOLBaseTestCase {
             Vector vectorLayer = new Vector(vectorLayerOptions);
             assertTrue(vectorLayer instanceof Base);
             assertTrue(vectorLayer instanceof Vector);
-            
+
             vectorLayer.setStyle(new Style());
             assertTrue(vectorLayer.getStyle() instanceof Style);
             assertTrue(vectorLayer.getStyles() instanceof Style[]);
@@ -46,17 +46,17 @@ public class VectorTest extends GwtOLBaseTestCase {
             Style[] styles = {new Style(), new Style()};
 
             vectorLayer.setStyles(styles);
-            
+
             assertTrue(vectorLayer.getStyle() instanceof Style);
             assertTrue(vectorLayer.getStyles() instanceof Style[]);
             assertTrue(vectorLayer.getStyles().length == 2);
 
-            vectorLayer.setStyleFunction((Feature feature) -> {
+            vectorLayer.setStyleFunction((Feature feature, double resolution) -> {
                 return null;
             });
 
             assertTrue(vectorLayer.getStyle() == null);
-            assertTrue(vectorLayer.getStyleFunction() instanceof GenericFunction);
+            assertTrue(vectorLayer.getStyleFunction() instanceof StyleFunction);
 
         });
 

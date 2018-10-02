@@ -57,13 +57,13 @@ public class Overlay extends Object {
 
     /**
      * Get the map associated with this overlay.
-     * @return {ol.Map|undefined} The map that the overlay is part of.
+     * @return {ol.PluggableMap|undefined} The map that the overlay is part of.
      */
-    public native Map getMap();
+    public native PluggableMap getMap();
 
     /**
      * Get the offset of this overlay.
-     * @return {Array.<number>} The offset.
+     * @return the offset.
      */
     public native Pixel getOffset();
 
@@ -93,7 +93,7 @@ public class Overlay extends Object {
      * @param map
      *            The map that the overlay is part of.
      */
-    public native void setMap(Map map);
+    public native void setMap(PluggableMap map);
 
     /**
      * Set the offset for this overlay.

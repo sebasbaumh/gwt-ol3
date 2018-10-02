@@ -82,10 +82,12 @@ public class GwtOLTestSuite extends GWTTestSuite {
 
         TestSuite suite = new TestSuite("Tests for GwtOL-Wrapper");
 
+        suite.addTestSuite(ObjectTest.class);
         suite.addTestSuite(CollectionTest.class);
         suite.addTestSuite(CoordinateTest.class);
         suite.addTestSuite(ExtentTest.class);
         suite.addTestSuite(FeatureTest.class);
+        suite.addTestSuite(GeolocationTest.class);
         suite.addTestSuite(GraticuleTest.class);
         suite.addTestSuite(MapTest.class);
         suite.addTestSuite(ObservableTest.class);

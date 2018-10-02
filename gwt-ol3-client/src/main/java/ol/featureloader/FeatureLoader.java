@@ -1,5 +1,5 @@
-/*******************************************************************************
- * Copyright 2014, 2017 gwt-ol3
+/** *****************************************************************************
+ * Copyright 2014, 2018 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,27 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol;
+package ol.featureloader;
 
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsProperty;
-import jsinterop.annotations.JsType;
+import jsinterop.annotations.JsFunction;
+import ol.Extent;
+import ol.proj.Projection;
 
 /**
- * Options for {@link Attribution}.
  *
- * @author Tino Desjardins
+ * A function that takes an {@link ol.Extent} representing the area to be loaded, a number representing the
+ * view's resolution and a {@link ol.proj.Projection}.
+ * The function is responsible for loading the features and adding them to the source
  *
+ * @author Fractaliste
  */
-@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
-public class AttributionOptions implements Options {
+@JsFunction
+@FunctionalInterface
+public interface FeatureLoader {
 
-    /**
-     * Set the HTML markup for this attribution. Required.
-     * 
-     * @param html html
-     */
-    @JsProperty
-    public native void setHtml(String html);
+    void loadFeatures(Extent extent, double resolution, Projection projection);
 
 }

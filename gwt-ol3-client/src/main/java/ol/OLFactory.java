@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2017 gwt-ol3
+ * Copyright 2014, 2018 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,10 @@
  *******************************************************************************/
 package ol;
 
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+
+import elemental2.core.JsObject;
 import ol.color.Color;
 import ol.control.Attribution;
 import ol.control.Control;
@@ -99,11 +103,6 @@ import ol.style.TextOptions;
 import ol.tilegrid.TileGrid;
 import ol.tilegrid.TileGridOptions;
 import ol.tilegrid.XyzTileGridOptions;
-
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
-
-import elemental2.core.JsObject;
 
 /**
  * Factory to create GWT-OL3 instances. Originally this factory was necessary
@@ -212,7 +211,7 @@ public final class OLFactory {
     /**
      * Creates a {@link Color} from the given String.
      *
-     * @param color
+     * @param colorString
      *            color in rgb(r,g,b) or rgba(r,g,b,a) format, or in hex #rrggbb
      *            or #rgb format
      * @return {@link Color}
@@ -600,7 +599,7 @@ public final class OLFactory {
     };
 
     /**
-     * 
+     *
      * Creates a {@link ol.interaction.Modify}
      *
      * @param modifyOptions {@link ol.interaction.ModifyOptions}
@@ -846,7 +845,7 @@ public final class OLFactory {
 
     /**
      * Creates {@link RasterOptions}.
-     * 
+     *
      * @return
      */
     public static RasterOptions createRasterOptions() {
@@ -857,7 +856,7 @@ public final class OLFactory {
 
     /**
      * Creates {@link RasterOptions} with the given source.
-     * 
+     *
      * @param source
      * @return
      */
@@ -931,17 +930,6 @@ public final class OLFactory {
      */
     public static TileCoord createTileCoord(double x, double y, double z) {
         return new TileCoord(z, x, y);
-    };
-
-    /**
-     * Creates a {@link Sphere}.
-     * @param radius
-     *            Radius.
-     *
-     * @return {@link Sphere}
-     */
-    public static Sphere createSphere(double radius) {
-        return new Sphere(radius);
     };
 
     /** Common **/
@@ -1128,7 +1116,7 @@ public final class OLFactory {
     /**
      * Creates a new {@link ol.layer.Vector} source.
      *
-     * @param options
+     * @param vectorLayerOptions
      *            {@link LayerOptions}
      * @return {@link ol.layer.Vector}
      */
