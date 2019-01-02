@@ -13,19 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol;
+package ol.format;
 
-import com.github.desjardins.gwt.junit.client.BaseTestCase;
+import ol.GwtOLBaseTestCase;
 
 /**
  *
- * @author Tino Desjardins
+ * A test case for {@link ol.format.WmsGetFeatureInfo}.
  *
  */
-public abstract class GwtOLBaseTestCase extends BaseTestCase {
+public class WmsGetFeatureInfoTest extends GwtOLBaseTestCase {
 
-    public GwtOLBaseTestCase() {
-        super("//cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js", "ol.GwtOLTest", 10000);
+    public void testWmsGetFeatureInfo() {
+
+        injectUrlAndTest(() -> {
+
+            WmsGetFeatureInfo wmsGetFeatureInfo = new WmsGetFeatureInfo();
+
+            assertNotNull(wmsGetFeatureInfo);
+            assertTrue(wmsGetFeatureInfo instanceof ol.format.Feature);
+            assertTrue(wmsGetFeatureInfo instanceof ol.format.XmlFeature);
+
+        });
+
     }
-
 }

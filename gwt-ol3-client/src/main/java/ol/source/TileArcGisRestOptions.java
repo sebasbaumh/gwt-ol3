@@ -13,19 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol.format;
+package ol.source;
 
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
 /**
- * GPX feature format.
- *
- * @author Tino Desjardins
- *
+ * Options for  ArcGIS Rest services with tile data.
  */
-@JsType(isNative = true, name = "GPX")
-public class Gpx extends XmlFeature {
-
-    public Gpx() {}
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+public class TileArcGisRestOptions extends TileImageOptions {
 
 }

@@ -18,14 +18,13 @@ package ol.format;
 import jsinterop.annotations.JsType;
 
 /**
- * GPX feature format.
- *
- * @author Tino Desjardins
- *
+ * Format for reading WMSGetFeatureInfo format. It uses GML2 to read features.
  */
-@JsType(isNative = true, name = "GPX")
-public class Gpx extends XmlFeature {
+@JsType(isNative = true, name = "WMSGetFeatureInfo")
+public class WmsGetFeatureInfo extends XmlFeature {
 
-    public Gpx() {}
+    public WmsGetFeatureInfo() {}
+
+    public WmsGetFeatureInfo(WmsGetFeatureInfoOptions wmsGetFeatureInfoOptions) {}
 
 }

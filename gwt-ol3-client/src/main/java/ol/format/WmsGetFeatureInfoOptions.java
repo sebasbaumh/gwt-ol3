@@ -15,17 +15,23 @@
  *******************************************************************************/
 package ol.format;
 
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
+import ol.Options;
 
 /**
- * GPX feature format.
- *
- * @author Tino Desjardins
+ * Options for the format WmsGetFeatureInfo.
  *
  */
-@JsType(isNative = true, name = "GPX")
-public class Gpx extends XmlFeature {
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+public class WmsGetFeatureInfoOptions implements Options {
 
-    public Gpx() {}
+    /**
+     *
+     * @param layers if set, only features of the given layers will be returned by the format when read.
+     */
+    @JsProperty
+    public native void setLayers(String[] layers);
 
 }
