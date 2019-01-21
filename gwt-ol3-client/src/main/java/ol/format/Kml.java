@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2016 gwt-ol3
+ * Copyright 2014, 2018 gwt-ol
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol.interaction;
+package ol.format;
 
 import jsinterop.annotations.JsType;
 
 /**
- *   Draw mode.  This collapses multi-part geometry types with their single-part
+ * KML format
  *
- * @author Peter Zanetti
- *
- * https://github.com/openlayers/ol3/blob/master/src/ol/interaction/draw.js
- *
+ * see https://openlayers.org/en/latest/apidoc/module-ol_format_KML-KML.html
  */
-@JsType
-public enum DrawMode {
-    Point,
-    LineString,
-    Polygon,
-    Circle
+@JsType(isNative = true, name = "KML")
+public class Kml extends XmlFeature {
+
+    public Kml() {}
+
+    public Kml(KmlOptions kmlOptions) {}
+
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2016 gwt-ol3
+ * Copyright 2014, 2019 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol.interaction;
+package ol.webgl;
 
-import jsinterop.annotations.JsType;
+import ol.GwtOLBaseTestCase;
 
 /**
- *   Draw mode.  This collapses multi-part geometry types with their single-part
  *
- * @author Peter Zanetti
- *
- * https://github.com/openlayers/ol3/blob/master/src/ol/interaction/draw.js
+ * @author Tino Desjardins
  *
  */
-@JsType
-public enum DrawMode {
-    Point,
-    LineString,
-    Polygon,
-    Circle
+public class WebGLTest extends GwtOLBaseTestCase {
+
+    public void testWebGL() {
+
+        injectUrlAndTest(new TestWithInjection() {
+
+            @Override
+            public void test() {
+
+                WebGL.has();
+
+            }
+
+        });
+
+    }
+
 }

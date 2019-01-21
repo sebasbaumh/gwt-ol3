@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2016 gwt-ol3
+ * Copyright 2014, 2018 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ol.interaction;
+package ol.format;
 
-import jsinterop.annotations.JsType;
+import ol.Feature;
+import ol.GwtOLBaseTestCase;
+import ol.utils.OLTestUtils;
 
 /**
- *   Draw mode.  This collapses multi-part geometry types with their single-part
- *
- * @author Peter Zanetti
- *
- * https://github.com/openlayers/ol3/blob/master/src/ol/interaction/draw.js
- *
+ * Test for format KML.
  */
-@JsType
-public enum DrawMode {
-    Point,
-    LineString,
-    Polygon,
-    Circle
+public class KmlTest extends GwtOLBaseTestCase {
+
+    private Kml kmlFormat;
+
+    @Override
+    protected void gwtSetUp() throws Exception {
+        injectUrlAndTest(() -> kmlFormat = new Kml());
+    }
+
+    public void testFormatKml() {
+
+        injectUrlAndTest(() -> {
+
+            Feature[] testFeatures = OLTestUtils.createLineFeatures();
+
+            String kml = kmlFormat.writeFeatures(testFeatures);
+
+            Feature[] features = kmlFormat.readFeatures(kml);
+            assertNotNull(features);
+            assertTrue(features.length > 0);
+
+        });
+
+    }
+
 }

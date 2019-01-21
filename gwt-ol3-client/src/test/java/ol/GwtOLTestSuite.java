@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014, 2018 gwt-ol3
+ * Copyright 2014, 2019 gwt-ol3
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ import ol.control.ZoomToExtentTest;
 import ol.events.condition.ConditionTest;
 import ol.format.GeoJsonTest;
 import ol.format.GpxTest;
+import ol.format.KmlTest;
 import ol.format.MvtTest;
 import ol.format.OsmXmlTest;
 import ol.format.WfsTest;
@@ -70,6 +71,7 @@ import ol.style.RegularShapeTest;
 import ol.style.StrokeTest;
 import ol.style.TextTest;
 import ol.tilegrid.TileGridTest;
+import ol.webgl.WebGLTest;
 
 /**
  * Testsuite for GwtOL.
@@ -120,6 +122,7 @@ public class GwtOLTestSuite extends GWTTestSuite {
         suite.addTestSuite(FilterTest.class);
         suite.addTestSuite(GeoJsonTest.class);
         suite.addTestSuite(GpxTest.class);
+        suite.addTestSuite(KmlTest.class);
         suite.addTestSuite(MvtTest.class);
         suite.addTestSuite(OsmXmlTest.class);
         suite.addTestSuite(WfsTest.class);
@@ -184,6 +187,9 @@ public class GwtOLTestSuite extends GWTTestSuite {
 
         // utilities
         suite.addTestSuite(OLUtilTest.class);
+
+        // WebGL
+        suite.addTestSuite(WebGLTest.class);
 
         return suite;
 
